@@ -3,15 +3,17 @@ import { Plus, Edit2, Trash2, X, MousePointerSquareDashed, CheckCircle2, AlertCi
 import { supabase } from './lib/supabase';
 
 const INITIAL_COLUMNS = [
-  { id: 'c1', title: '16/04 a 22/04', startDate: '2026-04-16', endDate: '2026-04-22', highlighted: false },
-  { id: 'c2', title: '23/04 a 29/04', startDate: '2026-04-23', endDate: '2026-04-29', highlighted: false },
-  { id: 'c3', title: '30/04 a 06/05', startDate: '2026-04-30', endDate: '2026-05-06', highlighted: false },
-  { id: 'c4', title: '07/05 a 14/05', startDate: '2026-05-07', endDate: '2026-05-14', highlighted: false },
-  { id: 'c5', title: '15/05 a 20/05', startDate: '2026-05-15', endDate: '2026-05-20', highlighted: false },
-  { id: 'c6', title: '21/05 a 27/05', startDate: '2026-05-21', endDate: '2026-05-27', highlighted: false },
-  { id: 'c7', title: '28/05 a 03/06', startDate: '2026-05-28', endDate: '2026-06-03', highlighted: false },
-  { id: 'c8', title: '04/06 a 10/06', startDate: '2026-06-04', endDate: '2026-06-10', highlighted: false },
-  { id: 'c9', title: '10/06 a 16/06 (DIA D)', startDate: '2026-06-10', endDate: '2026-06-16', highlighted: false },
+  { "id": "c1", "title": "24/03 a 31/03", "endDate": "2026-03-31", "startDate": "2026-03-24", "highlighted": false },
+  { "id": "c2", "title": "01/04 a 08/04", "endDate": "2026-04-08", "startDate": "2026-04-01", "highlighted": false },
+  { "id": "c3", "title": "09/04 a 16/04", "endDate": "2026-04-16", "startDate": "2026-04-09", "highlighted": false },
+  { "id": "c4", "title": "17/04 a 24/04", "endDate": "2026-04-24", "startDate": "2026-04-17", "highlighted": false },
+  { "id": "c5", "title": "25/04 a 02/05", "endDate": "2026-05-02", "startDate": "2026-04-25", "highlighted": false },
+  { "id": "c6", "title": "03/05 a 10/05", "endDate": "2026-05-10", "startDate": "2026-05-03", "highlighted": false },
+  { "id": "c7", "title": "11/05 a 18/05", "endDate": "2026-05-18", "startDate": "2026-05-11", "highlighted": false },
+  { "id": "c8", "title": "19/05 a 26/05", "endDate": "2026-05-26", "startDate": "2026-05-19", "highlighted": false },
+  { "id": "c9", "title": "27/05 a 03/06", "endDate": "2026-06-03", "startDate": "2026-05-27", "highlighted": false },
+  { "id": "c10", "title": "04/06 a 11/06", "endDate": "2026-06-11", "startDate": "2026-06-04", "highlighted": false },
+  { "id": "c11", "title": "12/06 a 19/06 (DIA D)", "endDate": "2026-06-19", "startDate": "2026-06-12", "highlighted": false }
 ];
 
 const ROWS = [
