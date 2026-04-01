@@ -524,7 +524,7 @@ export default function App() {
                 {columns.map((col, idx) => (
                   <th 
                     key={col.id} 
-                    className={`border-b border-r border-slate-200 p-2 md:p-3 min-w-[160px] md:min-w-[200px] align-top transition-colors ${
+                    className={`border-b border-r border-slate-200 p-2 md:p-3 min-w-[160px] max-w-[160px] md:min-w-[200px] md:max-w-[200px] break-words whitespace-normal align-top transition-colors ${
                       highlightMode ? 'cursor-pointer hover:bg-red-50' : ''
                     } ${getHighlightClasses(idx, true, false)}`}
                     onClick={() => highlightMode && toggleHighlight(col.id)}
@@ -572,7 +572,7 @@ export default function App() {
                           onDragEnter={() => handleDragEnter(row.id, col.id, row.type)}
                           onDragLeave={handleDragLeave}
                           onDrop={(e) => handleDrop(e, row.id, col.id, row.type)}
-                          className={`border-r border-b border-slate-200 p-2 align-top min-h-[80px] cursor-pointer transition-colors hover:bg-slate-50 ${dragOverCell === `${row.id}-${col.id}` ? 'bg-indigo-50 border-2 border-indigo-400 border-dashed' : ''} ${getHighlightClasses(colIdx, false, isLastRow)}`}
+                          className={`border-r border-b border-slate-200 p-2 align-top min-h-[80px] max-w-[160px] md:max-w-[200px] cursor-pointer transition-colors hover:bg-slate-50 ${dragOverCell === `${row.id}-${col.id}` ? 'bg-indigo-50 border-2 border-indigo-400 border-dashed' : ''} ${getHighlightClasses(colIdx, false, isLastRow)}`}
                         >
                           <div className="flex flex-wrap gap-2">
                             {cellCards.map(card => (
@@ -580,7 +580,7 @@ export default function App() {
                                 key={card.id} 
                                 draggable={true}
                                 onDragStart={(e) => handleDragStart(e, row.id, col.id, card)}
-                                className={`relative group/card flex items-center justify-center px-3 py-1.5 rounded-md border text-xs md:text-sm font-medium shadow-sm w-full cursor-grab active:cursor-grabbing ${
+                                className={`relative group/card flex items-center justify-center text-center break-words whitespace-normal px-3 py-1.5 rounded-md border text-xs md:text-sm font-medium shadow-sm w-full cursor-grab active:cursor-grabbing ${
                                   card.type === 'numeric' 
                                     ? `${COLOR_MAP[card.color].bg} ${COLOR_MAP[card.color].text} ${COLOR_MAP[card.color].border}`
                                     : 'bg-white text-slate-700 border-slate-300'
