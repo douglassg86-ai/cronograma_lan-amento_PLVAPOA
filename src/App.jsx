@@ -611,6 +611,7 @@ export default function App() {
                                       type="checkbox" 
                                       checked={card.completed || false}
                                       onChange={(e) => toggleCardCompletion(e, row.id, col.id, card.id)}
+                                      onClick={(e) => e.stopPropagation()}
                                       className="shrink-0 cursor-pointer w-4 h-4 accent-green-600 rounded mt-0.5"
                                     />
                                     <span className="flex-1 break-words">{card.value}</span>
