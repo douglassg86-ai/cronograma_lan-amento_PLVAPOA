@@ -118,6 +118,7 @@ const COLOR_MAP = {
   pink: { bg: 'bg-pink-100', text: 'text-pink-800', border: 'border-pink-300', label: 'Prospectores (Rosa)' },
   pink_reimpact: { bg: 'bg-pink-50', text: 'text-pink-800', border: 'border-pink-400 border-dashed', label: 'Reimpactar lead (Rosa)' },
   yellow: { bg: 'bg-yellow-100', text: 'text-yellow-800', border: 'border-yellow-300', label: 'Plataforma (Amarelo)' },
+  green: { bg: 'bg-green-100', text: 'text-green-800', border: 'border-green-300', label: 'Realizado (Verde)' },
 };
 
 export default function App() {
@@ -416,9 +417,25 @@ export default function App() {
     syncData(columns, newCards);
   };
 
+  const toggleCardCompletion = (e, rowId, colId, cardId) => {
+    e.stopPropagation();
+    
+    const newCards = { ...cards };
+    const rowData = newCards[rowId];
+    if (!rowData) return;
+    
+    newCards[rowId] = {
+      ...rowData,
+      [colId]: rowData[colId].map(c => c.id === cardId ? { ...c, completed: !c.completed } : c)
+    };
+
+    setCards(newCards);
+    syncData(columns, newCards);
+  };
+
   const getRowTotals = (rowId) => {
     const rowData = cards[rowId] || {};
-    const totals = { cyan: 0, pink: 0, yellow: 0 };
+    const totals = { cyan: 0, pink: 0, yellow: 0, green: 0 };
     
     Object.values(rowData).forEach(colCards => {
       colCards.forEach(card => {
@@ -583,10 +600,24 @@ export default function App() {
                                 className={`relative group/card flex items-center justify-center text-center break-words whitespace-normal px-3 py-1.5 rounded-md border text-xs md:text-sm font-medium shadow-sm w-full cursor-grab active:cursor-grabbing ${
                                   card.type === 'numeric' 
                                     ? `${COLOR_MAP[card.color].bg} ${COLOR_MAP[card.color].text} ${COLOR_MAP[card.color].border}`
-                                    : 'bg-white text-slate-700 border-slate-300'
+                                    : card.completed 
+                                      ? 'bg-green-100 text-green-800 border-green-300' 
+                                      : 'bg-white text-slate-700 border-slate-300'
                                 } ${draggedItem?.card?.id === card.id ? 'opacity-50 border-dashed' : ''}`}
                               >
-                                {card.value}
+                                {card.type === 'text' ? (
+                                  <div className="flex items-start w-full gap-2 text-left">
+                                    <input 
+                                      type="checkbox" 
+                                      checked={card.completed || false}
+                                      onChange={(e) => toggleCardCompletion(e, row.id, col.id, card.id)}
+                                      className="shrink-0 cursor-pointer w-4 h-4 accent-green-600 rounded mt-0.5"
+                                    />
+                                    <span className="flex-1 break-words">{card.value}</span>
+                                  </div>
+                                ) : (
+                                  card.value
+                                )}
                                 <button 
                                   onClick={(e) => deleteCard(e, row.id, col.id, card.id)}
                                   className="absolute -top-2 -right-2 bg-white text-slate-400 hover:text-red-500 border border-slate-200 rounded-full p-0.5 opacity-100 md:opacity-0 group-hover/card:opacity-100 transition-opacity shadow-sm"
@@ -617,7 +648,10 @@ export default function App() {
                           {rowTotals.yellow > 0 && (
                             <div className="w-full text-center px-2 py-1 rounded bg-yellow-100 text-yellow-800 border border-yellow-300 text-sm font-bold shadow-sm">{rowTotals.yellow}</div>
                           )}
-                          {(rowTotals.cyan === 0 && rowTotals.pink === 0 && rowTotals.yellow === 0) && (
+                          {rowTotals.green > 0 && (
+                            <div className="w-full text-center px-2 py-1 rounded bg-green-100 text-green-800 border border-green-300 text-sm font-bold shadow-sm">{rowTotals.green}</div>
+                          )}
+                          {(rowTotals.cyan === 0 && rowTotals.pink === 0 && rowTotals.yellow === 0 && rowTotals.green === 0) && (
                             <span className="text-slate-400 text-sm text-center block">-</span>
                           )}
                         </div>
